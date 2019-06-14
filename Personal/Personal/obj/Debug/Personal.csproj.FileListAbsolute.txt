@@ -1,0 +1,7 @@
+C:\Users\nursen\source\repos\Personal\Personal\bin\Debug\Personal.exe.config
+C:\Users\nursen\source\repos\Personal\Personal\bin\Debug\Personal.exe
+C:\Users\nursen\source\repos\Personal\Personal\bin\Debug\Personal.pdb
+C:\Users\nursen\source\repos\Personal\Personal\obj\Debug\Personal.csprojAssemblyReference.cache
+C:\Users\nursen\source\repos\Personal\Personal\obj\Debug\Personal.csproj.CoreCompileInputs.cache
+C:\Users\nursen\source\repos\Personal\Personal\obj\Debug\Personal.exe
+C:\Users\nursen\source\repos\Personal\Personal\obj\Debug\Personal.pdb
