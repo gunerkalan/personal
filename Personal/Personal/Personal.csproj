@@ -42,8 +42,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\Permission.cs" />
+    <Compile Include="Entities\PermissionType.cs" />
     <Compile Include="Entities\Personals.cs" />
     <Compile Include="Interfaces\IPersonal.cs" />
+    <Compile Include="Interfaces\IPersonalHandler.cs" />
+    <Compile Include="PersonalManager\PersonalHandler.cs" />
     <Compile Include="PersonalManager\PersonalManager.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

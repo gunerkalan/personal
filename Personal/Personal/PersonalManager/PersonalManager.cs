@@ -10,37 +10,72 @@ namespace Personal.PersonalManageras
 {
     public class PersonalManager : IPersonal
     {
-        public int CalculatePermiisionPermisiion(Personals personal)
+        public double CalculatePermission(Personals personal, Permission permission, PermissionType permissionType)
         {
-            if (personal.PermissionType == "Daily")
-                return Convert.ToInt32(personal.RemainingPermission = personal.TotalPermission - personal.UsedPermiision);
-                 //Console.WriteLine("Kalan izni veri tabanına double olarak kaydet")
-               /*
-                * İzin tipi günlük ise toplam izinden kullanılan izni çıkarıp bir kalan izne atıyoruz, kalan izni veritabanında double olarak kayededip
-                * personele int olarak veriyoruz
-                */
-            else if (personal.PermissionType == "Horly")
-                return Convert.ToInt32(Math.Floor(personal.RemainingPermission = personal.TotalPermission - personal.UsedPermiision / 24));
-               /*
-                *İzin tipi günlük ise toplam izinden kulanılan izni güne çevirip çıkarıyoruz
-                * Kalan izni veritabanına double olarak kaydediyoruz
-                * Kullanıcıya kalan izni görünülemek için double sayıyı bir alt int sayıya çevirip veriyoruz
-                */
+            if (permissionType.PermissionTypeID == 1) //Mazeret İzni
+            {
+                if (permission.PermissionYear == DateTime.Now.Year)
+                {
+                    Console.WriteLine("You arent allowed to hourly permission previous year");
+                    return permission.RemainingPermission;
+                }
+                else
+                {
+                    if (permission.RemainingPermission == 0)
+                    {
+                        Console.WriteLine("Dear" + personal.Name + personal.Surname + "you dont have enough excuse permission, but you can use yearly permiison instead of excuse permiision ");
+                        return permission.RemainingPermission;
+                    }
+                    else
+                    {
+                        //Mazeret izni 22,5  saat ama değişebilir TotalPermission =22,5
+                        permission.RemainingPermission = permission.TotalPermission - permission.UsedPermiision;
+                        // Dataase e kalan izni remaininPermission u yaz (kalan izni), UsedPermissionu database yaz (kullanılan izin)
+                        Console.WriteLine("Dear" + personal.Name + personal.Surname + "your remaining excuse permision is" + permission.RemainingPermission);
+                        return permission.RemainingPermission;
+
+                    }
+                }
+            }
+        
+             else if (permission.PermissionTypeID==2) //Yıllık İzin Günlük
+            {
+                permission.RemainingPermission = permission.TotalPermission - permission.UsedPermiision;
+                // Dataase e kalan izni remaininPermission u yaz (kalan izni), UsedPermissionu database yaz (kullanılan izin)
+                int showremaingpermission = Convert.ToInt32(Math.Floor(permission.RemainingPermission));
+                //Kullanıcıya ondalıklı sayı yerine sayıyı bir alt tam sayıya yuvarlıyarak integer tam sayı gösterdik
+                Console.WriteLine("Dear" + personal.Name + personal.Surname + "your remaining yearly permision is" + showremaingpermission );
+                return permission.RemainingPermission;
+            }
+
+            else if (permissionType.PermissionTypeID==3) // Yıllık İzin Saatlik
+            {
+                //Yıllık İzin saatlikte total permiison =0 
+                if (permission.UsedPermiision<4)
+                {
+                    Console.WriteLine("Dear" + personal.Name + personal.Surname + "you can use least four hours for yearly daily permiision");
+                    // Used permissionu database e yaz
+                    //Bu izin tipi için total ve remaining permiison hesabı yok 0 verilebilir
+                    return permission.UsedPermiision;
+                }
+                else
+                {
+                    //Database de PermiisonType 2 ye git //Yllık İzin Günlüğe
+
+                    permission.RemainingPermission = permission.TotalPermission - (permission.UsedPermiision/8);
+                    // Dataase e kalan izni remaininPermission u yaz (kalan izni), UsedPermissionu database yaz (kullanılan izin)
+                    int showremaingpermission = Convert.ToInt32(Math.Floor(permission.RemainingPermission));
+                    //Kullanıcıya ondalıklı sayı yerine sayıyı bir alt tam sayıya yuvarlıyarak integer tam sayı gösterdik
+                    Console.WriteLine("Dear" + personal.Name + personal.Surname + "your remaining yearly permision is" + showremaingpermission);
+                    return permission.RemainingPermission;
+                }
+            }
+
             else
+            {
                 Console.WriteLine("Permission Type is not found !");
                 return 0;
-
-        }
-
-        internal void CalculatePersonalPermission()
-        {
-            CalculatePermiisionPermisiion(new Personals
-            {
-                PersonalId = 1,
-                Name = "Güner",
-                Surname = "Kalan",
-                    
-            });
+            }
         }
     }
 }

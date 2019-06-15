@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace Personal.Interfaces
 {
-    interface IPersonal
+    public interface IPersonalHandler
     {
-        double CalculatePermission (Personals personal, Permission permission, PermissionType permissionType);
+        void PersonalBirthDate(Personals personal);
     }
 }
